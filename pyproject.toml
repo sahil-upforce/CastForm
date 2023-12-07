@@ -3,7 +3,7 @@ target-version = "py39"
 [tool.black]
 target-version = ["py39"]
 line-length = 120
-include = '\.pyi?$'
+include = '^/.*\.py$'
 
 [tool.ruff]
 # Enable Pyflakes `E` and `F` codes by default.

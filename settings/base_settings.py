@@ -14,6 +14,9 @@ INSTALLED_APPS = [
     # Third Party
     "django_celery_results",
     "django_extensions",
+    # APPs
+    "core",
+    "users_app",
 ]
 
 MIDDLEWARE = [
@@ -76,6 +79,8 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+AUTH_USER_MODEL = "users_app.User"
+
 REDIS_HOST = ENV_VARIABLES.get("REDIS_HOST", "localhost")
 REDIS_PORT = ENV_VARIABLES.get("REDIS_PORT", 6379)
 
@@ -85,4 +90,4 @@ CELERY_ACCEPT_CONTENT = ["application/json"]
 CELERY_RESULT_SERIALIZER = "json"
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_BACKEND = "django-db"
-CELERY_TIMEZONE = "Asia/Kolkata"
+CELERY_TIMEZONE = "UTC"
