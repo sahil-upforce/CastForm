@@ -4,6 +4,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from core.models import BaseModel
+from users_app.managers import CustomUserManager
 
 
 class Gender(BaseModel):
@@ -12,7 +13,7 @@ class Gender(BaseModel):
 
     class Meta:
         verbose_name = "gender"
-        verbose_name_plural = "gender"
+        verbose_name_plural = "genders"
 
     def __str__(self):
         return self.name
@@ -26,10 +27,10 @@ class Gender(BaseModel):
     ):
         self.slug = self.make_slug(self.name)
         super(Gender, self).save(
-            force_insert=False,
-            force_update=False,
-            using=None,
-            update_fields=None,
+            force_insert=force_insert,
+            force_update=force_update,
+            using=using,
+            update_fields=update_fields,
         )
 
 
@@ -53,10 +54,10 @@ class UserType(BaseModel):
     ):
         self.slug = self.make_slug(self.name)
         super(UserType, self).save(
-            force_insert=False,
-            force_update=False,
-            using=None,
-            update_fields=None,
+            force_insert=force_insert,
+            force_update=force_update,
+            using=using,
+            update_fields=update_fields,
         )
 
 
@@ -87,6 +88,9 @@ class User(AbstractUser, BaseModel):
         related_name="users",
         null=True,
     )
+
+    objects = CustomUserManager()
+    all_objects = CustomUserManager(alive_only=False)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]

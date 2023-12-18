@@ -1,7 +1,10 @@
+import datetime
 import uuid
 
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
+from core.managers import BaseModelManager
 
 
 class BaseModel(models.Model):
@@ -34,8 +37,15 @@ class BaseModel(models.Model):
         related_name="+",
     )
 
+    objects = BaseModelManager()
+    all_objects = BaseModelManager(alive_only=False)
+
     class Meta:
         abstract = True
+
+    def delete(self, using=None, keep_parents=False):
+        self.deleted_at = datetime.datetime.now()
+        self.save()
 
     @property
     def is_new(self):
