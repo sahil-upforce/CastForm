@@ -15,7 +15,7 @@ class BaseModel(models.Model):
     created_by = models.ForeignKey(
         verbose_name=_("created by"),
         to="users_app.User",
-        on_delete=models.DO_NOTHING,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         related_name="+",
@@ -23,7 +23,7 @@ class BaseModel(models.Model):
     updated_by = models.ForeignKey(
         verbose_name=_("updated by"),
         to="users_app.User",
-        on_delete=models.DO_NOTHING,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         related_name="+",
@@ -31,7 +31,7 @@ class BaseModel(models.Model):
     deleted_by = models.ForeignKey(
         verbose_name=_("deleted by"),
         to="users_app.User",
-        on_delete=models.DO_NOTHING,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
         related_name="+",
@@ -46,6 +46,9 @@ class BaseModel(models.Model):
     def delete(self, using=None, keep_parents=False):
         self.deleted_at = datetime.datetime.now()
         self.save()
+
+    def hard_delete(self):
+        return super().delete()
 
     @property
     def is_new(self):

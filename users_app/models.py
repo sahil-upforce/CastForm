@@ -25,6 +25,7 @@ class Gender(BaseModel):
         using=None,
         update_fields=None,
     ):
+        self.name = self.name.title()
         self.slug = self.make_slug(self.name)
         super(Gender, self).save(
             force_insert=force_insert,
@@ -52,6 +53,7 @@ class UserType(BaseModel):
         using=None,
         update_fields=None,
     ):
+        self.name = self.name.title()
         self.slug = self.make_slug(self.name)
         super(UserType, self).save(
             force_insert=force_insert,
@@ -77,15 +79,15 @@ class User(AbstractUser, BaseModel):
     user_type = models.ForeignKey(
         verbose_name=_("user type"),
         to=UserType,
-        on_delete=models.DO_NOTHING,
-        related_name="users",
+        on_delete=models.SET_NULL,
+        related_name="+",
         null=True,
     )
     gender = models.ForeignKey(
         verbose_name=_("gender"),
         to=Gender,
-        on_delete=models.DO_NOTHING,
-        related_name="users",
+        on_delete=models.SET_NULL,
+        related_name="+",
         null=True,
     )
 
