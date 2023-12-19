@@ -14,6 +14,7 @@ INSTALLED_APPS = [
     # Third Party
     "django_celery_results",
     "django_extensions",
+    "rest_framework",
     # APPs
     "core",
     "users_app",
