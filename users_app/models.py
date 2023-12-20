@@ -25,7 +25,7 @@ class Gender(BaseModel):
         using=None,
         update_fields=None,
     ):
-        self.name = self.name.title()
+        self.name = self.name.strip().title()
         self.slug = self.make_slug(self.name)
         super(Gender, self).save(
             force_insert=force_insert,
@@ -53,7 +53,7 @@ class UserType(BaseModel):
         using=None,
         update_fields=None,
     ):
-        self.name = self.name.title()
+        self.name = self.name.strip().title()
         self.slug = self.make_slug(self.name)
         super(UserType, self).save(
             force_insert=force_insert,
