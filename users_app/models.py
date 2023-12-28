@@ -103,3 +103,7 @@ class User(AbstractUser, BaseModel):
 
     def __str__(self):
         return self.username
+
+    def make_inactive_user(self):
+        self.active = False
+        self.delete()
